@@ -1,7 +1,6 @@
 {
   "homepage": "https://abdulrafey01.github.io/react-counter/",
   "name": "react-app",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
