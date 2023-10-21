@@ -1,0 +1,30 @@
+.header{
+    background-color: black;
+    height: 50px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.outerDiv{
+    display: flex;
+    flex: 1;
+}
+
+.sideNav{
+    background-color: red;
+    width: 30%;
+}
+
+.main{
+    background-color: yellow;
+    flex: 1;
+}
+
+.footer{
+    background-color: blueviolet;
+    height: 50px;
+    margin-top: auto;
+}
