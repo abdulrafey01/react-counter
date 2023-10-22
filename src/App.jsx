@@ -1,46 +1,39 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Counters from "./components/Counters";
 
-export default class App extends Component {
-  state = {
-    counters:[
-        {id:1, value:0},
-        {id:2, value:0},
-        {id:3, value:0},
-        {id:4, value:0}
-    ]
-}
+import { useSelector, useDispatch } from 'react-redux'
+import { increment,reset,deleteCounter } from './features/counterSlice'
 
-handleDelete = (counterId) => {
-  console.log("Event Handler Called" + counterId);
-  const counters = this.state.counters.filter(c => c.id !== counterId)
-  this.setState({counters})
-}
-
-handleIncrement = (counter) => {
-  const counters = [...this.state.counters]
-  const index = counters.indexOf(counter)
-  counters[index] = {...counter}
-  counters[index].value++
-  this.setState({counters})
-}
-
-handleReset = () => {
-  const counters = this.state.counters.map(c => {
-    c.value = 0
-    return c
-  })
-  this.setState({counters})
-}
-  render() {
-    return (
-     <>
-      <Navbar totalCounters={this.state.counters.filter(c => c.value > 0).length}></Navbar>
-      <main className="container">
-        <Counters counters={this.state.counters} onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete}></Counters>
-      </main>
-     </>
-    );
+function App() {
+  const dispatch = useDispatch()
+  const counters = useSelector((state) => state.counters.value)
+  const handleIncrement = (counter) => {
+    dispatch(increment(counter.id))
   }
+
+  const handleReset = () => {
+    dispatch(reset())
+  }
+
+  const handleDelete = (counterId) => {
+    dispatch(deleteCounter(counterId))
+  }
+  return (
+    <>
+      <Navbar
+        totalCounters={counters.filter((c) => c.value > 0).length}
+      ></Navbar>
+      <main className="container">
+        <Counters
+          counters={counters}
+          onReset={handleReset}
+          onIncrement={handleIncrement}
+          onDelete={handleDelete}
+        ></Counters>
+      </main>
+    </>
+  );
 }
+
+export default App;

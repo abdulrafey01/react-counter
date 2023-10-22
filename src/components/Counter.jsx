@@ -1,23 +1,28 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export default class Counter extends Component {
+export default function Counter({ counter, onIncrement, onDelete }) {
+  let classes = "badge m-2 badge-";
+  classes += counter.value === 0 ? "warning" : "primary";
 
-    render() {
-    let classes = "badge m-2 badge-"
-    classes += this.props.counter.value === 0 ? "warning" : "primary"
-    return (
-        <div className='d-block'>
-        
-       <span className={classes}>{this.formatCount()}</span>
-        <button onClick={() => this.props.onIncrement(this.props.counter)} className='btn btn-secondary btn-sm'>Increment</button>
-        <button onClick={() => this.props.onDelete(this.props.counter.id)} className="btn btn-danger btn-sm m-2">Delete</button>
-      </div>
-    )
-  }
-
-  formatCount(){
-    const {value} = this.props.counter
-    return value === 0 ? "Zero" : value
-  }
-
+  const formatCount = () => {
+    const { value } = counter;
+    return value === 0 ? "Zero" : value;
+  };
+  return (
+    <div className="d-block">
+      <span className={classes}>{formatCount()}</span>
+      <button
+        onClick={() => onIncrement(counter)}
+        className="btn btn-secondary btn-sm"
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => onDelete(counter.id)}
+        className="btn btn-danger btn-sm m-2"
+      >
+        Delete
+      </button>
+    </div>
+  );
 }
